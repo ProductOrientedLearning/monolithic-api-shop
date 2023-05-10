@@ -8,7 +8,7 @@
 		<version>3.0.6</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.ecom</groupId>
+	<groupId>pol.ecom</groupId>
 	<artifactId>monolithic-api-shop</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>monolithic-api-shop</name>
