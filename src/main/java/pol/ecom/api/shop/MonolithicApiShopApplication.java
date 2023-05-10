@@ -4,7 +4,7 @@ package pol.ecom.api.shop;
  * This is course Microservice Product Oriented
  * MIT No Attribution
 
- * Copyright (c) <2023> <Dr.NgocLe & HaNguyen>
+ * Copyright (c) <2023> <Dr.JohnLe & Mr.HaNguyen>
 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
