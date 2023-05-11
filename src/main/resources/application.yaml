@@ -7,3 +7,8 @@ spring:
   application:
     name: service-api-eshop
 
+
+header:
+  author:
+    key-token: x-access-token
+    value-token: ${ACCESS_TOKEN:ackoi$@lQAEkadjfoaj$ad12}
