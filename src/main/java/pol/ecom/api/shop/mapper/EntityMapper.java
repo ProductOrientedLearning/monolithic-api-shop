@@ -21,8 +21,6 @@ package pol.ecom.api.shop.mapper;
  * IN THE SOFTWARE.
  */
 
-import java.util.List;
-
 public interface EntityMapper<R,E> {
     /**
      * This function allow transform data from dto request to entity.
