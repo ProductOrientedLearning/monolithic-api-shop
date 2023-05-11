@@ -1,4 +1,4 @@
-package pol.ecom.api.shop.controller;
+package pol.ecom.api.shop.service.impl;
 /*
  * This is course Microservice Product Oriented
  * MIT No Attribution
@@ -22,29 +22,24 @@ package pol.ecom.api.shop.controller;
  */
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Service;
 import pol.ecom.api.shop.dto.request.CustomerRequest;
 import pol.ecom.api.shop.dto.response.CustomerResponse;
 import pol.ecom.api.shop.service.CustomerService;
 
-@RestController
-@RequestMapping(path = "/api/customer", produces = MediaType.APPLICATION_JSON_VALUE)
+@Service
 @Slf4j
-public class CustomerController {
+public class CustomerServiceImpl implements CustomerService {
 
-    @Autowired
-    private CustomerService customerService;
-
-    @PostMapping("/sign-up")
-    public ResponseEntity<CustomerResponse> createUser(@RequestBody CustomerRequest request) {
-        log.info("create user");
-        return new ResponseEntity<>(customerService.createCustomer(request), HttpStatus.OK);
+    @Override
+    public CustomerResponse createCustomer(CustomerRequest request) {
+        log.info("process in service create a customer");
+        return CustomerResponse.builder()
+                .name(request.getName())
+                .email(request.getEmail())
+                .phone(request.getPhone())
+                .address(request.getAddress())
+                .account(request.getEmail())
+                .build();
     }
 }
