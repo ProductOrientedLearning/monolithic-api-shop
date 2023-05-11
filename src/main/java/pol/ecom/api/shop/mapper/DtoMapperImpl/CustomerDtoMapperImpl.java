@@ -1,4 +1,4 @@
-package pol.ecom.api.shop.service.impl;
+package pol.ecom.api.shop.mapper.DtoMapperImpl;
 /*
  * This is course Microservice Product Oriented
  * MIT No Attribution
@@ -21,32 +21,36 @@ package pol.ecom.api.shop.service.impl;
  * IN THE SOFTWARE.
  */
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import pol.ecom.api.shop.dto.request.CustomerRequest;
+import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 import pol.ecom.api.shop.dto.response.CustomerResponse;
-import pol.ecom.api.shop.mapper.DtoMapperImpl.CustomerDtoMapperImpl;
-import pol.ecom.api.shop.mapper.EnityMapperImpl.CustomerMapperImpl;
-import pol.ecom.api.shop.repository.CustomerRepository;
-import pol.ecom.api.shop.service.CustomerService;
+import pol.ecom.api.shop.entity.Customer;
+import pol.ecom.api.shop.mapper.DtoMapper;
 
-@Service
-@Slf4j
-public class CustomerServiceImpl implements CustomerService {
+import java.util.ArrayList;
+import java.util.List;
 
-    @Autowired
-    private CustomerMapperImpl customerMapper;
-    @Autowired
-    private CustomerDtoMapperImpl customerDtoMapper;
-    @Autowired
-    private CustomerRepository customerRepository;
-
-    @Transactional
+@Component
+public class CustomerDtoMapperImpl implements DtoMapper<Customer, CustomerResponse> {
     @Override
-    public CustomerResponse createCustomer(CustomerRequest request) {
-        log.info("process in service create a customer");
-        return customerDtoMapper.toDto(customerRepository.save(customerMapper.toEntity(request)));
+    public CustomerResponse toDto(Customer entity) {
+        return CustomerResponse.builder()
+                .name(entity.getName())
+                .email(entity.getEmail())
+                .phone(entity.getPhone())
+                .address(entity.getAddress())
+                .account(entity.getAccount())
+                .build();
+    }
+
+    @Override
+    public List<CustomerResponse> toListDto(List<Customer> entities) {
+        List<CustomerResponse> responses = new ArrayList<>();
+        if(!ObjectUtils.isEmpty(entities)) {
+            for (Customer entity : entities) {
+                responses.add(toDto(entity));
+            }
+        }
+        return responses;
     }
 }

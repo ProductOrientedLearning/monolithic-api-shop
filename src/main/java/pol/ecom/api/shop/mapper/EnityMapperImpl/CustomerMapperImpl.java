@@ -1,4 +1,4 @@
-package pol.ecom.api.shop.service.impl;
+package pol.ecom.api.shop.mapper.EnityMapperImpl;
 /*
  * This is course Microservice Product Oriented
  * MIT No Attribution
@@ -21,32 +21,22 @@ package pol.ecom.api.shop.service.impl;
  * IN THE SOFTWARE.
  */
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Component;
 import pol.ecom.api.shop.dto.request.CustomerRequest;
-import pol.ecom.api.shop.dto.response.CustomerResponse;
-import pol.ecom.api.shop.mapper.DtoMapperImpl.CustomerDtoMapperImpl;
-import pol.ecom.api.shop.mapper.EnityMapperImpl.CustomerMapperImpl;
-import pol.ecom.api.shop.repository.CustomerRepository;
-import pol.ecom.api.shop.service.CustomerService;
+import pol.ecom.api.shop.entity.Customer;
+import pol.ecom.api.shop.mapper.EntityMapper;
 
-@Service
-@Slf4j
-public class CustomerServiceImpl implements CustomerService {
-
-    @Autowired
-    private CustomerMapperImpl customerMapper;
-    @Autowired
-    private CustomerDtoMapperImpl customerDtoMapper;
-    @Autowired
-    private CustomerRepository customerRepository;
-
-    @Transactional
+@Component
+public class CustomerMapperImpl implements EntityMapper<CustomerRequest, Customer> {
     @Override
-    public CustomerResponse createCustomer(CustomerRequest request) {
-        log.info("process in service create a customer");
-        return customerDtoMapper.toDto(customerRepository.save(customerMapper.toEntity(request)));
+    public Customer toEntity(CustomerRequest request) {
+        return Customer.builder()
+                .name(request.getName())
+                .phone(request.getPhone())
+                .email(request.getEmail())
+                .account(request.getEmail())
+                .address(request.getAddress())
+                .build();
     }
+
 }
