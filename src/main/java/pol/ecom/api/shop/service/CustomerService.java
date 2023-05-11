@@ -25,5 +25,14 @@ import pol.ecom.api.shop.dto.request.CustomerRequest;
 import pol.ecom.api.shop.dto.response.CustomerResponse;
 
 public interface CustomerService {
+
+    /**
+     * This function is for creating new customers,
+     * we should be validated the format of the email and phone,
+     * and check conditions not to allow duplicate emails
+     * because the email will use as an account sign to the system.
+     * @param request CustomerRequest
+     * @return CustomerResponse
+     */
     CustomerResponse createCustomer(CustomerRequest request);
 }
