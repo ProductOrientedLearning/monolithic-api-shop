@@ -39,9 +39,9 @@ import java.util.Collections;
 
 @Component
 public class RequestFilter extends OncePerRequestFilter {
-    @Value("${header.author.key-token}")
+    @Value("${header.security.key-token}")
     private String headerKeyAccess;
-    @Value("${header.author.value-token}")
+    @Value("${header.security.value-token}")
     private String valueAccess;
 
     @Override
