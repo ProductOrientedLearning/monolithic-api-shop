@@ -1,4 +1,4 @@
-package pol.ecom.api.shop.controller;
+package pol.ecom.api.shop.dto;
 /*
  * This is course Microservice Product Oriented
  * MIT No Attribution
@@ -21,26 +21,19 @@ package pol.ecom.api.shop.controller;
  * IN THE SOFTWARE.
  */
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import pol.ecom.api.shop.dto.CustomerResponse;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@RestController
-@RequestMapping(path = "/api/customer", produces = MediaType.APPLICATION_JSON_VALUE)
-public class CustomerController {
-
-    @PostMapping("/sign-up")
-    public ResponseEntity<CustomerResponse> createUser() {
-        CustomerResponse customerResponse = CustomerResponse.builder()
-                .name("Jonh")
-                .email("jonh@gmail.com")
-                .phone("123456")
-                .address("Australia")
-                .build();
-        return new ResponseEntity<>(customerResponse, HttpStatus.OK);
-    }
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class CustomerResponse {
+    private String name;
+    private String phone;
+    private String email;
+    private String account;
+    private String address;
 }
