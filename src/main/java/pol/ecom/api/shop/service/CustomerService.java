@@ -1,4 +1,4 @@
-package pol.ecom.api.shop.controller;
+package pol.ecom.api.shop.service;
 /*
  * This is course Microservice Product Oriented
  * MIT No Attribution
@@ -21,30 +21,9 @@ package pol.ecom.api.shop.controller;
  * IN THE SOFTWARE.
  */
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import pol.ecom.api.shop.dto.request.CustomerRequest;
 import pol.ecom.api.shop.dto.response.CustomerResponse;
-import pol.ecom.api.shop.service.CustomerService;
 
-@RestController
-@RequestMapping(path = "/api/customer", produces = MediaType.APPLICATION_JSON_VALUE)
-@Slf4j
-public class CustomerController {
-
-    @Autowired
-    private CustomerService customerService;
-
-    @PostMapping("/sign-up")
-    public ResponseEntity<CustomerResponse> createUser(@RequestBody CustomerRequest request) {
-        log.info("create user");
-        return new ResponseEntity<>(customerService.createCustomer(request), HttpStatus.OK);
-    }
+public interface CustomerService {
+    CustomerResponse createCustomer(CustomerRequest request);
 }

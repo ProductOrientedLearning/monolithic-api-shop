@@ -1,4 +1,4 @@
-package pol.ecom.api.shop.dto;
+package pol.ecom.api.shop.dto.response;
 /*
  * This is course Microservice Product Oriented
  * MIT No Attribution
