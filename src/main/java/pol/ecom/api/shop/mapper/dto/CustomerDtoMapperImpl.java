@@ -1,4 +1,4 @@
-package pol.ecom.api.shop.mapper.DtoMapperImpl;
+package pol.ecom.api.shop.mapper.dto;
 /*
  * This is course Microservice Product Oriented
  * MIT No Attribution

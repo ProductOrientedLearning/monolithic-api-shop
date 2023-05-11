@@ -1,4 +1,4 @@
-package pol.ecom.api.shop.mapper.EnityMapperImpl;
+package pol.ecom.api.shop.mapper.enity;
 /*
  * This is course Microservice Product Oriented
  * MIT No Attribution

@@ -27,8 +27,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pol.ecom.api.shop.dto.request.CustomerRequest;
 import pol.ecom.api.shop.dto.response.CustomerResponse;
-import pol.ecom.api.shop.mapper.DtoMapperImpl.CustomerDtoMapperImpl;
-import pol.ecom.api.shop.mapper.EnityMapperImpl.CustomerMapperImpl;
+import pol.ecom.api.shop.mapper.dto.CustomerDtoMapperImpl;
+import pol.ecom.api.shop.mapper.enity.CustomerMapperImpl;
 import pol.ecom.api.shop.repository.CustomerRepository;
 import pol.ecom.api.shop.service.CustomerService;
 
