@@ -21,6 +21,7 @@ package pol.ecom.api.shop.controller;
  * IN THE SOFTWARE.
  */
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -31,10 +32,12 @@ import pol.ecom.api.shop.dto.CustomerResponse;
 
 @RestController
 @RequestMapping(path = "/api/customer", produces = MediaType.APPLICATION_JSON_VALUE)
+@Slf4j
 public class CustomerController {
 
     @PostMapping("/sign-up")
     public ResponseEntity<CustomerResponse> createUser() {
+        log.info("create user");
         CustomerResponse customerResponse = CustomerResponse.builder()
                 .name("Jonh")
                 .email("jonh@gmail.com")
