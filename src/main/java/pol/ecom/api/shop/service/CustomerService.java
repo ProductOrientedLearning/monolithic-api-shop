@@ -30,7 +30,7 @@ public interface CustomerService {
      * This function is for creating new customers,
      * we should be validated the format of the email and phone,
      * and check conditions not to allow duplicate emails
-     * because the email will use as an account sign to the system.
+     * because the email will use as an account sign-in to the system.
      * @param request CustomerRequest
      * @return CustomerResponse
      */
