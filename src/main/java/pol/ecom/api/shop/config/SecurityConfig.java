@@ -33,11 +33,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    AuthenticationFilter authenticationFilter;
+    RequestFilter requestFilter;
 
     @Autowired
-    public SecurityConfig(AuthenticationFilter authenticationFilter) {
-        this.authenticationFilter = authenticationFilter;
+    public SecurityConfig(RequestFilter requestFilter) {
+        this.requestFilter = requestFilter;
     }
 
     @Bean
@@ -47,7 +47,7 @@ public class SecurityConfig {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(requestFilter, UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
     }
 }

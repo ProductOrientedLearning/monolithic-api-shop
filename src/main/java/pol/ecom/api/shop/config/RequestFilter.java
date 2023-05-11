@@ -38,7 +38,7 @@ import java.io.IOException;
 import java.util.Collections;
 
 @Component
-public class AuthenticationFilter extends OncePerRequestFilter {
+public class RequestFilter extends OncePerRequestFilter {
     @Value("${header.author.key-token}")
     private String headerKeyAccess;
     @Value("${header.author.value-token}")
