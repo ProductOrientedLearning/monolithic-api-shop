@@ -22,6 +22,7 @@ package pol.ecom.api.shop.controller.admin;
  */
 
 import lombok.extern.slf4j.Slf4j;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -47,7 +48,7 @@ public class AdminCustomerController {
 
     @GetMapping("/search")
     public ResponseEntity<CustomerPageResponse> searchCustomer(@RequestParam(value = "textSearch", required = false) String textSearch,
-                                                               @SortDefault(sort = CommonConstants.EntityProperties.NAME, direction = Sort.Direction.ASC) Pageable pageable ) {
+                                                               @SortDefault(sort = CommonConstants.EntityProperties.NAME, direction = Sort.Direction.ASC)@ParameterObject Pageable pageable ) {
         log.info("search customer");
         return new ResponseEntity<>(customerService.searchCustomer(textSearch, pageable), HttpStatus.OK);
 
