@@ -21,7 +21,9 @@ package pol.ecom.api.shop.service;
  * IN THE SOFTWARE.
  */
 
+import org.springframework.data.domain.Pageable;
 import pol.ecom.api.shop.dto.request.CustomerRequest;
+import pol.ecom.api.shop.dto.response.CustomerPageResponse;
 import pol.ecom.api.shop.dto.response.CustomerResponse;
 
 public interface CustomerService {
@@ -35,4 +37,11 @@ public interface CustomerService {
      * @return CustomerResponse
      */
     CustomerResponse createCustomer(CustomerRequest request);
+
+    /**
+     * This function allows search for customers according to info: name, phone, email, and address of the customer.
+     * @param textSearch String.
+     * @return CustomerResponse pages.
+     */
+    CustomerPageResponse searchCustomer(String textSearch, Pageable pageable);
 }

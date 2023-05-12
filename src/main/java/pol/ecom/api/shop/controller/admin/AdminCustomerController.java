@@ -1,4 +1,4 @@
-package pol.ecom.api.shop.controller;
+package pol.ecom.api.shop.controller.admin;
 /*
  * This is course Microservice Product Oriented
  * MIT No Attribution
@@ -23,30 +23,31 @@ package pol.ecom.api.shop.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.SortDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import pol.ecom.api.shop.dto.request.CustomerRequest;
-import pol.ecom.api.shop.dto.response.CustomerResponse;
+import org.springframework.web.bind.annotation.RequestParam;
+import pol.ecom.api.shop.constant.CommonConstants;
+import pol.ecom.api.shop.dto.response.CustomerPageResponse;
 import pol.ecom.api.shop.service.CustomerService;
 
-@RestController
-@RequestMapping(path = "/api/customer", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = "admin/api/customer", produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
-public class CustomerController {
+public class AdminCustomerController {
 
     @Autowired
     private CustomerService customerService;
 
-    @PostMapping("/sign-up")
-    public ResponseEntity<CustomerResponse> createUser(@RequestBody CustomerRequest request) {
-        log.info("create user");
-        return new ResponseEntity<>(customerService.createCustomer(request), HttpStatus.OK);
+    @GetMapping("/search")
+    public ResponseEntity<CustomerPageResponse> searchCustomer(@RequestParam(value = "textSearch", required = false) String textSearch,
+                                                               @SortDefault(sort = CommonConstants.EntityProperties.NAME, direction = Sort.Direction.ASC) Pageable pageable ) {
+        log.info("search customer");
+        return new ResponseEntity<>(customerService.searchCustomer(textSearch, pageable), HttpStatus.OK);
+
     }
-
-
 }
