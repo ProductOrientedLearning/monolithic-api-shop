@@ -1,4 +1,4 @@
-package pol.ecom.api.shop.service;
+package pol.ecom.api.shop.mapper.dto;
 /*
  * This is course Microservice Product Oriented
  * MIT No Attribution
@@ -21,27 +21,36 @@ package pol.ecom.api.shop.service;
  * IN THE SOFTWARE.
  */
 
-import org.springframework.data.domain.Pageable;
-import pol.ecom.api.shop.dto.request.CustomerRequest;
-import pol.ecom.api.shop.dto.response.CustomerPageResponse;
+import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 import pol.ecom.api.shop.dto.response.CustomerResponse;
+import pol.ecom.api.shop.entity.Customer;
+import pol.ecom.api.shop.mapper.DtoMapper;
 
-public interface CustomerService {
+import java.util.ArrayList;
+import java.util.List;
 
-    /**
-     * This function is for creating new customers,
-     * we should be validated the format of the email and phone,
-     * and check conditions not to allow duplicate emails
-     * because the email will use as an account sign-in to the system.
-     * @param request CustomerRequest
-     * @return CustomerResponse
-     */
-    CustomerResponse createCustomer(CustomerRequest request);
+@Component
+public class CustomerDtoMapperImpl implements DtoMapper<Customer, CustomerResponse> {
+    @Override
+    public CustomerResponse toDto(Customer entity) {
+        return CustomerResponse.builder()
+                .name(entity.getName())
+                .email(entity.getEmail())
+                .phone(entity.getPhone())
+                .address(entity.getAddress())
+                .account(entity.getAccount())
+                .build();
+    }
 
-    /**
-     * This function allows search for customers according to info: name, phone, email, and address of the customer.
-     * @param textSearch String.
-     * @return CustomerResponse pages.
-     */
-    CustomerPageResponse searchCustomer(String textSearch, Pageable pageable);
+    @Override
+    public List<CustomerResponse> toListDto(List<Customer> entities) {
+        List<CustomerResponse> responses = new ArrayList<>();
+        if(!ObjectUtils.isEmpty(entities)) {
+            for (Customer entity : entities) {
+                responses.add(toDto(entity));
+            }
+        }
+        return responses;
+    }
 }

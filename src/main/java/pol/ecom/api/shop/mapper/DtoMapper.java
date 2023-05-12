@@ -1,4 +1,4 @@
-package pol.ecom.api.shop.constant;
+package pol.ecom.api.shop.mapper;
 /*
  * This is course Microservice Product Oriented
  * MIT No Attribution
@@ -21,16 +21,20 @@ package pol.ecom.api.shop.constant;
  * IN THE SOFTWARE.
  */
 
-public class CommonConstants {
-    private CommonConstants(){}
+import java.util.List;
 
-    public static class EntityProperties{
-        private EntityProperties(){}
-        public static final String NAME = "name";
-    }
-    public static class HeaderInfo {
-        private HeaderInfo(){}
-        public static final String SYSTEM_AUTH = "System-Eco";
+public interface DtoMapper<E, D> {
+    /**
+     * This function allow transform data from entity to response data(dto).
+     * @param entity Object
+     * @return dto Object
+     */
+    D toDto(E entity);
 
-    }
+    /**
+     * This function allow transform data from list entities to response data(list dto).
+     * @param entities list Object
+     * @return list dto Object.
+     */
+    List<D> toListDto(List<E> entities);
 }

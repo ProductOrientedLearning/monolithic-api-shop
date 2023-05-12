@@ -1,4 +1,4 @@
-package pol.ecom.api.shop.constant;
+package pol.ecom.api.shop.entity;
 /*
  * This is course Microservice Product Oriented
  * MIT No Attribution
@@ -21,16 +21,41 @@ package pol.ecom.api.shop.constant;
  * IN THE SOFTWARE.
  */
 
-public class CommonConstants {
-    private CommonConstants(){}
+import jakarta.persistence.*;
+import lombok.*;
 
-    public static class EntityProperties{
-        private EntityProperties(){}
-        public static final String NAME = "name";
-    }
-    public static class HeaderInfo {
-        private HeaderInfo(){}
-        public static final String SYSTEM_AUTH = "System-Eco";
+import java.io.Serial;
+import java.io.Serializable;
 
-    }
+@Entity
+@Table(name = "customer")
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class Customer implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "name", length = 50)
+    private String name;
+
+    @Column(name = "phone", length = 12)
+    private String phone;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "account", unique = true)
+    private String account;
+
+    @Column(name = "address", length = 1024)
+    private String address;
+
 }

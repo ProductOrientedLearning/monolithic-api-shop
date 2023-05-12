@@ -1,4 +1,4 @@
-package pol.ecom.api.shop.constant;
+package pol.ecom.api.shop.dto.response;
 /*
  * This is course Microservice Product Oriented
  * MIT No Attribution
@@ -21,16 +21,11 @@ package pol.ecom.api.shop.constant;
  * IN THE SOFTWARE.
  */
 
-public class CommonConstants {
-    private CommonConstants(){}
+import lombok.Data;
 
-    public static class EntityProperties{
-        private EntityProperties(){}
-        public static final String NAME = "name";
-    }
-    public static class HeaderInfo {
-        private HeaderInfo(){}
-        public static final String SYSTEM_AUTH = "System-Eco";
+import java.util.List;
 
-    }
+@Data
+public class CustomerPageResponse extends PageDto {
+    private List<CustomerResponse> customerResponseList;
 }

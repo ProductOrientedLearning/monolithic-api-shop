@@ -22,24 +22,60 @@ package pol.ecom.api.shop.service.impl;
  */
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 import pol.ecom.api.shop.dto.request.CustomerRequest;
+import pol.ecom.api.shop.dto.response.CustomerPageResponse;
 import pol.ecom.api.shop.dto.response.CustomerResponse;
+import pol.ecom.api.shop.entity.Customer;
+import pol.ecom.api.shop.mapper.dto.CustomerDtoMapperImpl;
+import pol.ecom.api.shop.mapper.enity.CustomerMapperImpl;
+import pol.ecom.api.shop.repository.CustomerRepository;
 import pol.ecom.api.shop.service.CustomerService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Slf4j
 public class CustomerServiceImpl implements CustomerService {
 
+    @Autowired
+    private CustomerMapperImpl customerMapper;
+    @Autowired
+    private CustomerDtoMapperImpl customerDtoMapper;
+    @Autowired
+    private CustomerRepository customerRepository;
+
+    @Transactional
     @Override
     public CustomerResponse createCustomer(CustomerRequest request) {
         log.info("process in service create a customer");
-        return CustomerResponse.builder()
-                .name(request.getName())
-                .email(request.getEmail())
-                .phone(request.getPhone())
-                .address(request.getAddress())
-                .account(request.getEmail())
-                .build();
+        return customerDtoMapper.toDto(customerRepository.save(customerMapper.toEntity(request)));
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public CustomerPageResponse searchCustomer(String textSearch, Pageable pageable) {
+        CustomerPageResponse customerPageResponse = new CustomerPageResponse();
+        Page<Customer> customerResponsePage = customerRepository.searchCustomer(textSearch, pageable);
+        long totalRows = 0;
+        int totalPage = 0;
+        if(!ObjectUtils.isEmpty(customerResponsePage)) {
+            totalRows = customerPageResponse.getTotalRows();
+            totalPage = customerResponsePage.getTotalPages();
+            customerPageResponse.setCustomerResponseList(customerDtoMapper.toListDto(customerResponsePage.getContent()));
+        } else {
+            customerPageResponse.setCustomerResponseList(new ArrayList<>());
+        }
+        customerPageResponse.setSizePage(pageable.getPageSize());
+        customerPageResponse.setPage(pageable.getPageNumber());
+        customerPageResponse.setTotalPage(totalPage);
+        customerPageResponse.setTotalRows(totalRows);
+        return customerPageResponse;
     }
 }

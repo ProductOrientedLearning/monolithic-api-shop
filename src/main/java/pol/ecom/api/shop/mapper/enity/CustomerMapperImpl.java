@@ -1,4 +1,4 @@
-package pol.ecom.api.shop.constant;
+package pol.ecom.api.shop.mapper.enity;
 /*
  * This is course Microservice Product Oriented
  * MIT No Attribution
@@ -21,16 +21,22 @@ package pol.ecom.api.shop.constant;
  * IN THE SOFTWARE.
  */
 
-public class CommonConstants {
-    private CommonConstants(){}
+import org.springframework.stereotype.Component;
+import pol.ecom.api.shop.dto.request.CustomerRequest;
+import pol.ecom.api.shop.entity.Customer;
+import pol.ecom.api.shop.mapper.EntityMapper;
 
-    public static class EntityProperties{
-        private EntityProperties(){}
-        public static final String NAME = "name";
+@Component
+public class CustomerMapperImpl implements EntityMapper<CustomerRequest, Customer> {
+    @Override
+    public Customer toEntity(CustomerRequest request) {
+        return Customer.builder()
+                .name(request.getName())
+                .phone(request.getPhone())
+                .email(request.getEmail())
+                .account(request.getEmail())
+                .address(request.getAddress())
+                .build();
     }
-    public static class HeaderInfo {
-        private HeaderInfo(){}
-        public static final String SYSTEM_AUTH = "System-Eco";
 
-    }
 }
