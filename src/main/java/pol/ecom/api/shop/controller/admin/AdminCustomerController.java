@@ -32,10 +32,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import pol.ecom.api.shop.constant.CommonConstants;
 import pol.ecom.api.shop.dto.response.CustomerPageResponse;
 import pol.ecom.api.shop.service.CustomerService;
 
+@RestController
 @RequestMapping(path = "admin/api/customer", produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
 public class AdminCustomerController {
