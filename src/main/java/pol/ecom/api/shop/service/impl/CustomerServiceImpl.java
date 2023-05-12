@@ -38,7 +38,6 @@ import pol.ecom.api.shop.repository.CustomerRepository;
 import pol.ecom.api.shop.service.CustomerService;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @Slf4j
