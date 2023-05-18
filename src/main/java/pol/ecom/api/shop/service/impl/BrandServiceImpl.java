@@ -1,4 +1,4 @@
-package pol.ecom.api.shop.constant;
+package pol.ecom.api.shop.service.impl;
 /*
  * This is course Microservice Product Oriented
  * MIT No Attribution
@@ -21,18 +21,29 @@ package pol.ecom.api.shop.constant;
  * IN THE SOFTWARE.
  */
 
-public class CommonConstants {
-    private CommonConstants(){}
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import pol.ecom.api.shop.dto.request.BrandRequest;
+import pol.ecom.api.shop.dto.response.BrandResponse;
+import pol.ecom.api.shop.mapper.dto.BrandDtoMapper;
+import pol.ecom.api.shop.mapper.enity.BrandMapper;
+import pol.ecom.api.shop.repository.BrandRepository;
+import pol.ecom.api.shop.service.BrandService;
 
-    public static final String ARRAY_SEPARATOR = ",";
+@Service
+public class BrandServiceImpl implements BrandService {
+    @Autowired
+    private BrandDtoMapper brandDtoMapper;
+    @Autowired
+    private BrandMapper brandMapper;
+    @Autowired
+    private BrandRepository brandRepository;
 
-    public static class EntityProperties{
-        private EntityProperties(){}
-        public static final String NAME = "name";
-    }
-    public static class HeaderInfo {
-        private HeaderInfo(){}
-        public static final String SYSTEM_AUTH = "System-Eco";
 
+    @Transactional
+    @Override
+    public BrandResponse create(BrandRequest request) {
+        return brandDtoMapper.toDto(brandRepository.save(brandMapper.toEntity(request)));
     }
 }

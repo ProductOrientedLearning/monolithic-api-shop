@@ -1,4 +1,4 @@
-package pol.ecom.api.shop.constant;
+package pol.ecom.api.shop.entity;
 /*
  * This is course Microservice Product Oriented
  * MIT No Attribution
@@ -21,18 +21,38 @@ package pol.ecom.api.shop.constant;
  * IN THE SOFTWARE.
  */
 
-public class CommonConstants {
-    private CommonConstants(){}
+import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
-    public static final String ARRAY_SEPARATOR = ",";
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.UUID;
 
-    public static class EntityProperties{
-        private EntityProperties(){}
-        public static final String NAME = "name";
-    }
-    public static class HeaderInfo {
-        private HeaderInfo(){}
-        public static final String SYSTEM_AUTH = "System-Eco";
+@Entity
+@Table(name = "brand")
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class Brand implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
 
-    }
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "name")
+    private String name;
+    @Column(name = "image_url", columnDefinition = "TEXT")
+    @Lob
+    private String imageURL;
+
+    @Column(name = "info", columnDefinition = "TEXT")
+    @Lob
+    private String info;
+
 }

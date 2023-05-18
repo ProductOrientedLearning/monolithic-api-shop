@@ -1,4 +1,4 @@
-package pol.ecom.api.shop.constant;
+package pol.ecom.api.shop.controller.admin;
 /*
  * This is course Microservice Product Oriented
  * MIT No Attribution
@@ -21,18 +21,26 @@ package pol.ecom.api.shop.constant;
  * IN THE SOFTWARE.
  */
 
-public class CommonConstants {
-    private CommonConstants(){}
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import pol.ecom.api.shop.dto.request.BrandRequest;
+import pol.ecom.api.shop.dto.response.BrandResponse;
+import pol.ecom.api.shop.service.BrandService;
 
-    public static final String ARRAY_SEPARATOR = ",";
+@RestController
+@RequestMapping(path = "/admin/api/brand", produces = MediaType.APPLICATION_JSON_VALUE)
+public class AdminBrandController {
+    @Autowired
+    private BrandService brandService;
 
-    public static class EntityProperties{
-        private EntityProperties(){}
-        public static final String NAME = "name";
-    }
-    public static class HeaderInfo {
-        private HeaderInfo(){}
-        public static final String SYSTEM_AUTH = "System-Eco";
-
+    @PostMapping
+    public ResponseEntity<BrandResponse> createBrand(@RequestBody BrandRequest request) {
+        return new ResponseEntity<>(brandService.create(request), HttpStatus.OK);
     }
 }

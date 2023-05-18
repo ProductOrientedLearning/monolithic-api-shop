@@ -1,4 +1,4 @@
-package pol.ecom.api.shop.constant;
+package pol.ecom.api.shop.dto.request;
 /*
  * This is course Microservice Product Oriented
  * MIT No Attribution
@@ -21,18 +21,26 @@ package pol.ecom.api.shop.constant;
  * IN THE SOFTWARE.
  */
 
-public class CommonConstants {
-    private CommonConstants(){}
+import jakarta.validation.constraints.Size;
+import lombok.Data;
 
-    public static final String ARRAY_SEPARATOR = ",";
+import java.util.Date;
+import java.util.List;
 
-    public static class EntityProperties{
-        private EntityProperties(){}
-        public static final String NAME = "name";
-    }
-    public static class HeaderInfo {
-        private HeaderInfo(){}
-        public static final String SYSTEM_AUTH = "System-Eco";
-
-    }
+@Data
+public class ProductRequest {
+    @Size(max = 255, message = "max length is 255 character")
+    private String name;
+    @Size(max = 255, message = "max length is 255 character")
+    private String unit;
+    private Double price;
+    private Double specialPrice;
+    private Date fromDate;
+    private Date toDate;
+    private List<String> images;
+    private String sku;
+    private boolean inStock;
+    private int brandId;
+    private String info;
+    private boolean active;
 }
