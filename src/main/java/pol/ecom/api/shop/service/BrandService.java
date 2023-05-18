@@ -25,5 +25,11 @@ import pol.ecom.api.shop.dto.request.BrandRequest;
 import pol.ecom.api.shop.dto.response.BrandResponse;
 
 public interface BrandService {
+
+    /**
+     * This function create branch of the product.
+     * @param request BrandRequest
+     * @return BrandResponse Object
+     */
     BrandResponse create(BrandRequest request);
 }

@@ -27,6 +27,17 @@ import pol.ecom.api.shop.dto.response.ProductResponse;
 import java.util.UUID;
 
 public interface ProductService {
+    /**
+     * This function create a product.
+     * @param request ProductRequest.
+     * @return ProductResponse Object.
+     */
     ProductResponse create(ProductRequest request);
+
+    /**
+     * This function find a product according ID.
+     * @param uuid UUID
+     * @return ProductResponse Object.
+     */
     ProductResponse getById(UUID uuid);
 }
