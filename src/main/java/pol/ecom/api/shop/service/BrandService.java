@@ -1,4 +1,4 @@
-package pol.ecom.api.shop.constant;
+package pol.ecom.api.shop.service;
 /*
  * This is course Microservice Product Oriented
  * MIT No Attribution
@@ -21,18 +21,9 @@ package pol.ecom.api.shop.constant;
  * IN THE SOFTWARE.
  */
 
-public class CommonConstants {
-    private CommonConstants(){}
+import pol.ecom.api.shop.dto.request.BrandRequest;
+import pol.ecom.api.shop.dto.response.BrandResponse;
 
-    public static final String ARRAY_SEPARATOR = ",";
-
-    public static class EntityProperties{
-        private EntityProperties(){}
-        public static final String NAME = "name";
-    }
-    public static class HeaderInfo {
-        private HeaderInfo(){}
-        public static final String SYSTEM_AUTH = "System-Eco";
-
-    }
+public interface BrandService {
+    BrandResponse create(BrandRequest request);
 }

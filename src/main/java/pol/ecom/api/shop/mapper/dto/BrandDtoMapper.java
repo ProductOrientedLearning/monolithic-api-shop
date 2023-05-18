@@ -1,4 +1,4 @@
-package pol.ecom.api.shop.constant;
+package pol.ecom.api.shop.mapper.dto;
 /*
  * This is course Microservice Product Oriented
  * MIT No Attribution
@@ -21,18 +21,35 @@ package pol.ecom.api.shop.constant;
  * IN THE SOFTWARE.
  */
 
-public class CommonConstants {
-    private CommonConstants(){}
+import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
+import pol.ecom.api.shop.dto.response.BrandResponse;
+import pol.ecom.api.shop.entity.Brand;
+import pol.ecom.api.shop.mapper.DtoMapper;
 
-    public static final String ARRAY_SEPARATOR = ",";
+import java.util.ArrayList;
+import java.util.List;
 
-    public static class EntityProperties{
-        private EntityProperties(){}
-        public static final String NAME = "name";
+@Component
+public class BrandDtoMapper implements DtoMapper<Brand, BrandResponse> {
+    @Override
+    public BrandResponse toDto(Brand entity) {
+        return BrandResponse.builder()
+                .id(entity.getId())
+                .name(entity.getName())
+                .imageURL(entity.getImageURL())
+                .info(entity.getInfo())
+                .build();
     }
-    public static class HeaderInfo {
-        private HeaderInfo(){}
-        public static final String SYSTEM_AUTH = "System-Eco";
 
+    @Override
+    public List<BrandResponse> toListDto(List<Brand> entities) {
+        List<BrandResponse> brandResponses = new ArrayList<>();
+        if(!ObjectUtils.isEmpty(entities)) {
+            for(Brand entity : entities) {
+                brandResponses.add(toDto(entity));
+            }
+        }
+        return brandResponses;
     }
 }
