@@ -21,6 +21,7 @@ package pol.ecom.api.shop.service.impl;
  * IN THE SOFTWARE.
  */
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +33,7 @@ import pol.ecom.api.shop.repository.BrandRepository;
 import pol.ecom.api.shop.service.BrandService;
 
 @Service
+@Slf4j
 public class BrandServiceImpl implements BrandService {
     @Autowired
     private BrandDtoMapper brandDtoMapper;
@@ -44,6 +46,7 @@ public class BrandServiceImpl implements BrandService {
     @Transactional
     @Override
     public BrandResponse create(BrandRequest request) {
+        log.info("create brand");
         return brandDtoMapper.toDto(brandRepository.save(brandMapper.toEntity(request)));
     }
 }

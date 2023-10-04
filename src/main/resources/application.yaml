@@ -25,6 +25,14 @@ spring:
       max-lifetime: 1200000
       pool-name: ApiEshopPollHikari
 
+management:
+  endpoints:
+    jmx:
+      exposure:
+        include: "*"
+    web:
+      exposure:
+        include: health,info,prometheus
 
 header:
   security:
