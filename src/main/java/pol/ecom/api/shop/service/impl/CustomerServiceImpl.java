@@ -28,14 +28,17 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
+import pol.ecom.api.shop.constant.MessageError;
 import pol.ecom.api.shop.dto.request.CustomerRequest;
 import pol.ecom.api.shop.dto.response.CustomerPageResponse;
 import pol.ecom.api.shop.dto.response.CustomerResponse;
 import pol.ecom.api.shop.entity.Customer;
+import pol.ecom.api.shop.exception.ShopException;
 import pol.ecom.api.shop.mapper.dto.CustomerDtoMapperImpl;
 import pol.ecom.api.shop.mapper.enity.CustomerMapperImpl;
 import pol.ecom.api.shop.repository.CustomerRepository;
 import pol.ecom.api.shop.service.CustomerService;
+import pol.ecom.api.shop.util.MessageUtil;
 
 import java.util.ArrayList;
 
@@ -43,18 +46,37 @@ import java.util.ArrayList;
 @Slf4j
 public class CustomerServiceImpl implements CustomerService {
 
+
+    private final CustomerMapperImpl customerMapper;
+
+    private final CustomerDtoMapperImpl customerDtoMapper;
+
+    private final CustomerRepository customerRepository;
+
+    private final MessageUtil messageUtil;
+
     @Autowired
-    private CustomerMapperImpl customerMapper;
-    @Autowired
-    private CustomerDtoMapperImpl customerDtoMapper;
-    @Autowired
-    private CustomerRepository customerRepository;
+    public CustomerServiceImpl(CustomerMapperImpl customerMapper, CustomerDtoMapperImpl customerDtoMapper, CustomerRepository customerRepository, MessageUtil messageUtil) {
+        this.customerMapper = customerMapper;
+        this.customerDtoMapper = customerDtoMapper;
+        this.customerRepository = customerRepository;
+        this.messageUtil = messageUtil;
+    }
 
     @Transactional
     @Override
     public CustomerResponse createCustomer(CustomerRequest request) {
         log.info("process in service create a customer");
-        return customerDtoMapper.toDto(customerRepository.save(customerMapper.toEntity(request)));
+        Customer customer = customerRepository.findByAccount(request.getEmail());
+        if(!ObjectUtils.isEmpty(customer)){
+            throw new ShopException(MessageError.MESSAGE_ERROR_DUPLICATE_ACCOUNT.getCode(), messageUtil.getMessage(MessageError.MESSAGE_ERROR_DUPLICATE_ACCOUNT));
+        }
+        try {
+            return customerDtoMapper.toDto(customerRepository.save(customerMapper.toEntity(request)));
+        } catch (Exception ex) {
+            throw new ShopException(MessageError.MESSAGE_ERROR_SYSTEM_ERROR.getCode(), messageUtil.getMessage(MessageError.MESSAGE_ERROR_SYSTEM_ERROR));
+        }
+
     }
 
     @Transactional(readOnly = true)
