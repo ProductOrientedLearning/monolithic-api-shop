@@ -24,6 +24,7 @@ package pol.ecom.api.shop;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -41,6 +42,10 @@ public class AdminBrandControllerTests {
     private MockMvc mockMvc;
     @Autowired
     private ObjectMapper objectMapper;
+    @Value("${header.security.key-token}")
+    private String keyToken;
+    @Value("${header.security.value-token}")
+    private String valueToken;
 
 
     @Test
@@ -53,7 +58,7 @@ public class AdminBrandControllerTests {
         String requestString = objectMapper.writeValueAsString(request);
         mockMvc.perform(MockMvcRequestBuilders.post("/admin/api/brand")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .header("x-access-token", "ackoi$@lQAEkadjfoaj$ad12")
+                .header(keyToken, valueToken)
                 .content(requestString)
         ).andExpect(status().isOk());
 
@@ -69,7 +74,7 @@ public class AdminBrandControllerTests {
 
         mockMvc.perform(MockMvcRequestBuilders.post("/admin/api/brand")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .header("x-access-token", "ackoi$@lQAEkadjfoaj$ad12243434")
+                .header(keyToken, valueToken + "123Abj")
                 .content(requestString)
         ).andExpect(status().is4xxClientError());
 

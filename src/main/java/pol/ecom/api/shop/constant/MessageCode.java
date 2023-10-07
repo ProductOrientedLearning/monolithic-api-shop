@@ -26,7 +26,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum MessageError {
+public enum MessageCode {
     MESSAGE_ERROR_SYSTEM_ERROR("SHOP-500"),
     MESSAGE_ERROR_DUPLICATE_ACCOUNT("SHOP-400");
     private final String code;
