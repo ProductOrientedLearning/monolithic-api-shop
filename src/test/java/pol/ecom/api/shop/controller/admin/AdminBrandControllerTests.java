@@ -1,4 +1,4 @@
-package pol.ecom.api.shop;
+package pol.ecom.api.shop.controller.admin;
 /*
  * This is course Microservice Product Oriented
  * MIT No Attribution
