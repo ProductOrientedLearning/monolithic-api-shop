@@ -17,7 +17,6 @@ spring:
     url: ${DATABASE_URL:jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:5432}/${DATABASE_NAME:shop}}
     username: ${DATABASE_USERNAME:tribal}
     password: ${DATABASE_PASSWORD:Tribal22}
-    driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 30
       minimum-idle: 2
