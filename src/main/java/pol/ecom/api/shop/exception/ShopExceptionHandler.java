@@ -21,16 +21,21 @@ package pol.ecom.api.shop.exception;
  * IN THE SOFTWARE.
  */
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.client.HttpClientErrorException;
+import pol.ecom.api.shop.constant.MessageCode;
 import pol.ecom.api.shop.dto.response.MessageErrorResponse;
+import pol.ecom.api.shop.util.MessageUtil;
 
 @ControllerAdvice(basePackages = "pol.ecom")
 public class ShopExceptionHandler {
+    @Autowired
+    private MessageUtil messageUtil;
 
     @ExceptionHandler({ShopException.class})
     public ResponseEntity<MessageErrorResponse> ShopExceptionHandle(ShopException ex){
@@ -39,9 +44,9 @@ public class ShopExceptionHandler {
         String errorMessage = ex.getMessage() == null ? httpStatus.toString() : ex.getMessage();
         return new ResponseEntity<>(new MessageErrorResponse(ex.getCode(), errorMessage), HttpStatus.BAD_REQUEST);
         } else {
-            return new ResponseEntity<>(new MessageErrorResponse("500", "Internal Server Error"), HttpStatus.INTERNAL_SERVER_ERROR);
+            return response(HttpStatus.INTERNAL_SERVER_ERROR, MessageCode.MESSAGE_ERROR_SYSTEM_ERROR.getCode(),
+                    messageUtil.getMessage(MessageCode.MESSAGE_ERROR_SYSTEM_ERROR));
         }
-
     }
     @ExceptionHandler(HttpClientErrorException.class)
     public ResponseEntity<MessageErrorResponse> handleRestClientResponseException(HttpClientErrorException ex) {

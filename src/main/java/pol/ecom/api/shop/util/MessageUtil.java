@@ -25,14 +25,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Component;
-import pol.ecom.api.shop.constant.MessageError;
+import pol.ecom.api.shop.constant.MessageCode;
 
 @Component
 public class MessageUtil {
     @Autowired
     private MessageSource messageSource;
 
-    public String getMessage(MessageError key, Object... params) {
+    public String getMessage(MessageCode key, Object... params) {
         return messageSource.getMessage(key.getCode(), params, LocaleContextHolder.getLocale());
     }
 }

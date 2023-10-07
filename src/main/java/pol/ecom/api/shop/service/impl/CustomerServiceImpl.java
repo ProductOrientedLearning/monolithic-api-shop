@@ -28,7 +28,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
-import pol.ecom.api.shop.constant.MessageError;
+import pol.ecom.api.shop.constant.MessageCode;
 import pol.ecom.api.shop.dto.request.CustomerRequest;
 import pol.ecom.api.shop.dto.response.CustomerPageResponse;
 import pol.ecom.api.shop.dto.response.CustomerResponse;
@@ -69,12 +69,12 @@ public class CustomerServiceImpl implements CustomerService {
         log.info("process in service create a customer");
         Customer customer = customerRepository.findByAccount(request.getEmail());
         if(!ObjectUtils.isEmpty(customer)){
-            throw new ShopException(MessageError.MESSAGE_ERROR_DUPLICATE_ACCOUNT.getCode(), messageUtil.getMessage(MessageError.MESSAGE_ERROR_DUPLICATE_ACCOUNT));
+            throw new ShopException(MessageCode.MESSAGE_ERROR_DUPLICATE_ACCOUNT.getCode(), messageUtil.getMessage(MessageCode.MESSAGE_ERROR_DUPLICATE_ACCOUNT));
         }
         try {
             return customerDtoMapper.toDto(customerRepository.save(customerMapper.toEntity(request)));
         } catch (Exception ex) {
-            throw new ShopException(MessageError.MESSAGE_ERROR_SYSTEM_ERROR.getCode(), messageUtil.getMessage(MessageError.MESSAGE_ERROR_SYSTEM_ERROR));
+            throw new ShopException(MessageCode.MESSAGE_ERROR_SYSTEM_ERROR.getCode(), messageUtil.getMessage(MessageCode.MESSAGE_ERROR_SYSTEM_ERROR));
         }
 
     }
