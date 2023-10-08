@@ -38,5 +38,5 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
             "upper(c.name) like %:strSearch% or " +
             "upper(c.address) like %:strSearch% or " +
             "upper(c.email) like %:strSearch% ")
-    Page<Customer> searchCustomer(@Param("strSearch") String phone, Pageable pageable);
+    Page<Customer> searchCustomer(@Param("strSearch") String strSearch, Pageable pageable);
 }
