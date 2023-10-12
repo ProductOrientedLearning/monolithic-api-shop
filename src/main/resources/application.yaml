@@ -6,23 +6,8 @@ server:
 spring:
   application:
     name: service-api-eshop
-  jpa:
-    database: postgresql
-    show-sql: true
-    generate-ddl: true
-    hibernate:
-      ddl-auto: update
-
-  datasource:
-    url: ${DATABASE_URL:jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:5432}/${DATABASE_NAME:shop}}
-    username: ${DATABASE_USERNAME:tribal}
-    password: ${DATABASE_PASSWORD:Tribal22}
-    hikari:
-      maximum-pool-size: 30
-      minimum-idle: 2
-      connection-timeout: 20000
-      max-lifetime: 1200000
-      pool-name: ApiEshopPollHikari
+  profiles:
+    active: dev
 
 management:
   endpoints:
@@ -33,7 +18,3 @@ management:
       exposure:
         include: health,info,prometheus
 
-header:
-  security:
-    key-token: x-access-token
-    value-token: ${ACCESS_TOKEN:ackoi$@lQAEkadjfoaj$ad12}
