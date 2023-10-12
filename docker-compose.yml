@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:alpine3.17
+    restart: always
+    ports:
+      - "5432:5432"
+    container_name: postgresql_container
+    environment:
+      - POSTGRES_DB=shop
+      - POSTGRES_USER=tribal
+      - POSTGRES_PASSWORD=Tribal22
+    volumes:
+      - /Users/nguyenmanhha/postgresql:/var/lib/postgresql/data
+  backend:
+    build: .
+    container_name: apishop_container
+    ports:
+      - "8088:8088"
+    environment:
+      DATABASE_URL: jdbc:postgresql://db:5432/shop
+      DATABASE_USERNAME: tribal
+      DATABASE_PASSWORD: Tribal22
+    depends_on:
+      - db
+    restart: always
+
